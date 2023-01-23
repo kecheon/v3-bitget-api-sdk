@@ -7,10 +7,11 @@ import (
 	"bitget/internal/model"
 	"bitget/logging/applogger"
 	"fmt"
-	"github.com/gorilla/websocket"
-	"github.com/robfig/cron"
 	"sync"
 	"time"
+
+	"github.com/gorilla/websocket"
+	"github.com/robfig/cron"
 )
 
 type BitgetBaseWsClient struct {
@@ -245,8 +246,8 @@ func (p *BitgetBaseWsClient) CheckSum(jsonMap map[string]interface{}) bool {
 			return true
 		}
 		newBoooks := allBookInfo.Merge(bookInfo)
-		p.BooksMap[subscribeReq] = newBoooks
-		return newBoooks.CheckSum(uint32(checksum))
+		p.BooksMap[subscribeReq] = *newBoooks
+		return newBoooks.CheckSum(uint32(checksum), 25)
 	}
 	return true
 }
